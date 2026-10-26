@@ -1,0 +1,57 @@
+<h1>Portfólio Joaquim Nunes</h1>
+
+<input type="text" id="nome" placeholder="Nome">
+<input type="text" id="professor" placeholder="Professor(a)">
+<input type="text" id="cargaHoraria" placeholder="Carga Horária">
+<input type="text" id="nota" placeholder="Nota">
+<input type="text" id="aprendizado" placeholder="Aprendizado">
+<input type="text" id="imagem" placeholder="Imagem">
+
+<button onclick="cadastrar()">Cadastrar</button>
+<button onclick="buscar()">Buscar</button>
+
+<div id="lista"></div>
+
+<script>
+    async function cadastrar(){
+        const nome = document.getElementById('nome').value
+        const professor = document.getElementById('professor').value
+        const cargaHoraria = Number(document.getElementById('cargaHoraria').value)
+        const nota = Number(document.getElementById('nota').value)
+        const aprendizado = document.getElementById('aprendizado').value
+        const imagem = document.getElementById('imagem').value
+
+        const materia = {
+            nome, professor, cargaHoraria, nota, aprendizado, imagem
+        }
+
+        await fetch('http://localhost:3000/materias', {
+            method: 'POST',
+            body: JSON.stringify(materia),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+
+    }
+
+    async function buscar(){
+        const resposta = await fetch('http://localhost:3000/materias')
+        const materias = await resposta.json()
+
+        const lista = document.getElementById('lista')
+        lista.innerHTML = ''
+
+    materias.forEach((materia) => {
+        lista.innerHTML += `
+        <br>
+        <img width="200px" src="${materia.imagem}"> <br>
+        Matéria: ${materia.nome} <br>
+        Professor(a): ${materia.professor} <br>
+        Carga horária: ${materia.cargaHoraria} horas <br>
+        Nota: ${materia.nota} <br>
+        O que aprendi: ${materia.aprendizado} <br>
+        `
+    })
+}
+</script>

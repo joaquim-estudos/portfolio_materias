@@ -1,0 +1,17 @@
+###
+
+GET http://localhost:3000/materias
+
+###
+
+POST http://localhost:3000/materias
+Content-Type: application/json
+
+{
+    "nome": "Programação Web",
+    "professor": "Marcos",
+    "cargaHoraria": 80,
+    "nota": 9.5,
+    "aprendizado": "Criei minha primeira API com Express",
+    "imagem": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp7PiuYzMa7Px1M1gsoTPqB-5keaG2-7wsb6_U0FKMRQ&s=10"
+}
